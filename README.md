@@ -55,7 +55,7 @@ You can find the tutorial that covers these projects on YouTube [here](https://w
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/freecodecamp-projects.git
+    git clone https://github.com/itzaRinna/15JS_Projects.git
     ```
 2. Navigate to the project directory:
     ```sh
