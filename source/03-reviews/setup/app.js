@@ -29,7 +29,7 @@ const reviews = [
     text: 'Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. ',
   },
 ];
-// select items
+
 const img = document.getElementById('person-img');
 const author = document.getElementById('author');
 const job = document.getElementById('job');
@@ -39,46 +39,39 @@ const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const randomBtn = document.querySelector('.random-btn');
 
-// set starting item
-let currentItem = 0;
+let curItem = 0;
 
-// load initial item
-window.addEventListener('DOMContentLoaded', function () {
-  const item = reviews[currentItem];
-  img.src = item.img;
-  author.textContent = item.name;
-  job.textContent = item.job;
-  info.textContent = item.text;
+window.addEventListener('DOMContentLoaded', () => {
+  showPerson();
 });
 
-// show person based on item
-function showPerson(person) {
-  const item = reviews[person];
+showPerson = () => {
+  const item = reviews[curItem];
   img.src = item.img;
   author.textContent = item.name;
   job.textContent = item.job;
   info.textContent = item.text;
 }
-// show next person
-nextBtn.addEventListener('click', function () {
-  currentItem++;
-  if (currentItem > reviews.length - 1) {
-    currentItem = 0;
-  }
-  showPerson(currentItem);
-});
-// show prev person
-prevBtn.addEventListener('click', function () {
-  currentItem--;
-  if (currentItem < 0) {
-    currentItem = reviews.length - 1;
-  }
-  showPerson(currentItem);
-});
-// show random person
-randomBtn.addEventListener('click', function () {
-  console.log('hello');
 
-  currentItem = Math.floor(Math.random() * reviews.length);
-  showPerson(currentItem);
+nextBtn.addEventListener('click',() => {
+  curItem++;
+  if(curItem > reviews.length - 1)
+  {
+    curItem = 0;
+  }
+  showPerson(curItem);
+});
+
+prevBtn.addEventListener('click',() => {
+  curItem--;
+  if(curItem < 0)
+  {
+    curItem = reviews.length - 1;
+  }
+  showPerson(curItem);
+});
+
+randomBtn.addEventListener('click',() => {
+  curItem = Math.floor(Math.random() * reviews.length);
+  showPerson(curItem);
 });
