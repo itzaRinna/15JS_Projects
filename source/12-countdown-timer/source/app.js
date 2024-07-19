@@ -32,7 +32,7 @@ function getRemainingTime(){
   function format(item){
     if(item < 10){
       return item = `0${item}`;
-    }
+    } 
     return item;
   }
   const values = [days,hours,mins,secs];
