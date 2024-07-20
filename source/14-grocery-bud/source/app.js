@@ -28,16 +28,23 @@ function addItem(e) {
         <p class="title">${value}</p>
         <div class="btn-container">
           <button type="button" class="edit-btn"><i class="fas fa-edit"></i></button>
-          <button type="button" class="edit-btn"><i class="fas fa-trash"></i></button>
+          <button type="button" class="delete-btn"><i class="fas fa-trash"></i></button>
         </div>
         `;
+        const deleteBtn = element.querySelector('.delete-btn');
+        const editBtn = element.querySelector('.edit-btn');
+        deleteBtn.addEventListener('click', deleteItem);
+        editBtn.addEventListener('click', editItem);
         list.appendChild(element);
         displayAlert('Item added to the list', 'success');
         container.classList.add('show-container');
         addToLocalStora(id, value);
         setBackToDefault();
     }else if(value && editFlag) {
-        console.log('editing');
+        editElement.innerHTML = value;
+        displayAlert('value changed', 'success');
+        editLocalStorage(editID, value);
+        setBackToDefault();
     }else {
         displayAlert('Its fucking empty m8', "danger");
     }
@@ -63,6 +70,28 @@ function clearItems() {
     }
     container.classList.remove('show-container');
     displayAlert('Empty list', "danger");
+    setBackToDefault();
+    // localStorage.removeItem('list');
+}
+
+function deleteItem(e) {
+    const element = e.currentTarget.parentElement.parentElement;
+    const id = element.dataset.id;
+    list.removeChild(element);
+    if(list.children.length === 0) {
+        container.classList.remove('show-container');
+    }
+    displayAlert('item removed', "danger");
+    setBackToDefault();
+    // removeFromLocalStora(id);
+}
+function editItem(e) {
+    const element = e.currentTarget.parentElement.parentElement;
+    editElement = e.currentTarget.parentElement.previousElementSibling;
+    grocery.value = editElement.innerHTML;
+    editFlag = true;
+    editID = element.dataset.id;
+    submitBtn.textContent = 'edit';
 }
 
 function setBackToDefault() {
@@ -74,4 +103,12 @@ function setBackToDefault() {
 
 function addToLocalStora(id, value) {
     console.log('added to local storage');
+}
+
+function removeFromLocalStora(id) {
+
+}
+
+function editLocalStorage(id, value) {
+    
 }
