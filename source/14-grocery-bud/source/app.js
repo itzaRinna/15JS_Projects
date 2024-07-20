@@ -12,15 +12,39 @@ let editID = "";
 
 form.addEventListener('submit', addItem);
 
-function addItem(e){
+function addItem(e) {
     e.preventDefault();
     const value = grocery.value;
     const id = new Date().getTime().toString();
-    if(value && !editFlag){
-        console.log('adding');
-    }else if(value && editFlag){
+    if(value && !editFlag) {
+        const element = document.createElement('article');
+        element.classList.add('grocery-item');
+        const attr = document.createAttribute('data-id');
+        attr.value = id;
+        element.setAttributeNode(attr);
+        element.innerHTML = `
+        <p class="title">${value}</p>
+        <div class="btn-container">
+          <button type="button" class="edit-btn"><i class="fas fa-edit"></i></button>
+          <button type="button" class="edit-btn"><i class="fas fa-trash"></i></button>
+        </div>
+        `;
+        list.appendChild(element);
+        displayAlert('Item added to the list', 'success');
+        container.classList.add('show-container');
+    }else if(value && editFlag) {
         console.log('editing');
-    }else{
-        console.log('empty value');
+    }else {
+        displayAlert('Its fucking empty m8', "danger");
     }
+}
+
+function displayAlert(text, action) {
+    alert.textContent = text;
+    alert.classList.add(`alert-${action}`);
+
+    setTimeout(()=>{
+        alert.textContent = "";
+        alert.classList.remove(`alert-${action}`);
+    }, 1000);
 }
