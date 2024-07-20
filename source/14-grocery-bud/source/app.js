@@ -12,6 +12,8 @@ let editID = "";
 
 form.addEventListener('submit', addItem);
 
+clearBtn.addEventListener('click', clearItems);
+
 function addItem(e) {
     e.preventDefault();
     const value = grocery.value;
@@ -32,6 +34,8 @@ function addItem(e) {
         list.appendChild(element);
         displayAlert('Item added to the list', 'success');
         container.classList.add('show-container');
+        addToLocalStora(id, value);
+        setBackToDefault();
     }else if(value && editFlag) {
         console.log('editing');
     }else {
@@ -47,4 +51,27 @@ function displayAlert(text, action) {
         alert.textContent = "";
         alert.classList.remove(`alert-${action}`);
     }, 1000);
+}
+
+function clearItems() {
+    const items = document.querySelectorAll('.grocery-item');
+
+    if(items.length > 0) {
+        items.forEach(function(item){
+            list.removeChild(item);
+        });
+    }
+    container.classList.remove('show-container');
+    displayAlert('Empty list', "danger");
+}
+
+function setBackToDefault() {
+    grocery.value = '';
+    editFlag = false;
+    editID = '';
+    submitBtn.textContent = "submit";
+}
+
+function addToLocalStora(id, value) {
+    console.log('added to local storage');
 }
